@@ -6,6 +6,7 @@ from random import shuffle
 import re
 import logging
 import sys
+import gc
 sys.setrecursionlimit(10000)
 import urllib3
 
@@ -27,6 +28,8 @@ def crawl_oficina(oficina_id):
         data = url_generator.set_oficina_id(data,oficina_id)
         data = url_generator.set_doc_type(data,d)
         crawl(data,docs_to_states)
+        collected = gc.collect()
+        logging.info("Garbage collector: collected %d objects." % (collected))
 
 def crawl(data,doc_parser):
     pool = Pool(processes=4)
@@ -88,6 +91,5 @@ def crawl_pages(data):
         data = url_generator.set_event_validation(data,parser.get_event_validation(soup))
         data = url_generator.set_view_state(data,parser.get_view_state(soup))
     logger.debug('found %i docs',len(docs))
-    conn = urllib3.HTTPConnectionPool('190.34.178.19', maxsize=15)
     conn.close()
     return docs
