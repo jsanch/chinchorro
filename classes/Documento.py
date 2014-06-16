@@ -8,12 +8,12 @@ Base = declarative_base()
 class Documento(Base):
   __tablename__ = 'documentos'
 
-  control = Column(Unicode(50), primary_key=True)
-  institucion = Column(Unicode(50))
-  documento = Column(Unicode(50))
-  numero = Column(Unicode(50))
-  favor = Column(Unicode(50))
-  estado = Column(Unicode(50))
+  control = Column(Unicode(100), primary_key=True)
+  institucion = Column(Unicode(100))
+  documento = Column(Unicode(100))
+  numero = Column(Unicode(100))
+  favor = Column(Unicode(100))
+  estado = Column(Unicode(100))
   monto = Column(Numeric(15,2))
   html = deferred(Column(UnicodeText))
   fecha = Column(DateTime)
