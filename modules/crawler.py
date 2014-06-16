@@ -43,7 +43,8 @@ def crawl(data,doc_parser):
         while states:
             visited.update(states)
             queries = states_to_queries(data,states)
-            docs = { item for sublist in pool.map(crawl_pages,queries) for item in sublist }
+            docs = { item for sublist in pool.map(crawl_pages,queries) for item in sublist if item.control not in visited}
+            visited.update([d.control for d in docs])
             states = [s for s in doc_parser(docs) if s not in visited]
             for doc in docs: db_worker.create_documento(doc)
             depth += 1
