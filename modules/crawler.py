@@ -2,6 +2,7 @@ from multiprocessing import Pool
 from modules import parser,url_generator,db_worker
 from bs4 import BeautifulSoup,SoupStrainer
 import math
+from random import shuffle
 import re
 import logging
 import sys
@@ -16,6 +17,7 @@ doc_types = ["OC","CO","TRA","CH"]
 pool = Pool(processes=4)
 
 def crawl_all():
+    shuffle(office_ids)
     for office in office_ids:
         crawl_oficina(office)
 
