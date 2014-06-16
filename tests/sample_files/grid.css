@@ -1,0 +1,149 @@
+﻿
+.grid
+{
+    width: auto;
+    height: auto;
+}
+.grid H2 
+{ 
+	margin:0; padding:0; 
+	color:#ffffff;
+	height:20px;
+	line-height:20px;
+	font-size:14px;
+}
+.grid .mid
+{
+	padding:3px 0px 0px 0px;
+}
+.grid .datatable
+{
+	width: 100%;
+	color: #4d4d4d;
+    margin-top: 0px;
+}        
+.grid .datatable TH
+{
+    font-weight:bold;
+    letter-spacing:0px;
+    text-align:left;
+    padding:2px 4px;
+    color:white;
+    background-color:#355A7D;
+    border-top:solid 1px #79797E;
+    border-bottom:solid 1px #79797E;
+}
+.grid .datatable TH A
+{ 
+	text-decoration:none;
+	padding-right:2px; 
+	color:#9ADBFF;
+}
+.grid .datatable TH.sortasc A { background:url(../Estilos/grids/img/asc.gif) right center no-repeat; }
+.grid .datatable TH.sortdesc A { background:url(../Estilos/grids/img/desc.gif) right center no-repeat; }
+.grid .datatable .row TD
+{
+    /*font-size:11px;
+    text-align:left;*/
+    padding:6px 4px;
+    border-bottom:solid 1px #79797E;
+}
+
+
+
+.grid .datatable .alternaterow TD
+{
+    /*font-size:11px;
+    text-align:left;*/
+    padding:6px 4px;
+    border-bottom:solid 1px #79797E;
+    background-color:#D9E1EA;
+} 
+.grid .datatable .row:hover 
+{
+	background-color:#fffacd;
+	color:#000;
+}
+.grid .datatable .alternaterow:hover      
+{
+	background-color:#fffacd;
+	color:#000;
+}
+.grid .datatable .row TD.first { padding-left:10px; }
+.grid .datatable TH.first { padding-left:10px; }
+.grid .datatable .row:hover .first
+{
+	background-repeat: no-repeat;
+	background-image: url(Estilos/grids/img/bullet.gif);
+}  
+/* Data Pager Styles */
+.grid TR.pager-row TD
+{
+    border-top:solid 2px #79797E;
+}
+.grid .pager
+{
+    /*font-family:arial,sans-serif;*/
+    text-align:center;
+    padding:3px;	
+    font-size:18px;
+} 
+.grid .pager SPAN.command,        
+.grid .pager SPAN.current,        
+.grid .pager A.command,
+.grid TR.pager-row TD A
+{
+    color:#5a90ce;
+    padding:0px 5px;
+    text-decoration:none;
+    border:none;
+}
+.grid .pager A.command:hover,
+.grid TR.pager-row TD A:hover
+{
+    border:solid 2px #408BB6;
+    background-color:#59A5D1;
+    color:#fff;
+    padding:0px 3px;
+    text-decoration:none;
+}        
+.grid .pager SPAN.current,
+.grid TR.pager-row TD SPAN
+{
+	border:none;
+    font-weight:bold;
+    color:#3e3e3e;
+    padding:0px 6px;
+}
+.grid TR.pager-row TD
+{
+	border-top:none;
+	text-align:center;
+}
+.grid TR.pager-row TABLE
+{
+	height:35px;
+	margin:0 auto 0 auto;
+}
+
+.grid .datalist .row TD
+{
+	/*font-size:11px;
+	text-align: left;*/
+}
+.grid .datalist .row:hover 
+{
+	background-color:#fffacd;
+	color:#000;
+}
+
+.grid .datalist .leyenda 
+{
+	color:#79797E;
+}
+
+.grid .datatable A
+{
+    border-color: #FFFFFF;
+    border-style: none;
+}
