@@ -56,14 +56,15 @@ def create_documento(documento):
 
 def create_documentos(documentos):
     session = session_maker()
-    try:
-        session.add_all(documentos)
-        #logger.info('got new documento %s', documento.numero)
-        session.commit()
-        session.expunge(documentos)
-    except Exception as e:
-        #logger.error(e)
-        session.rollback()
-    finally:
-        session.close()
+    for doc in documentos:
+        try:
+            session.add(documento)
+            #logger.info('got new documento %s', documento.numero)
+            session.commit()
+            session.expunge(documento)
+        except Exception as e:
+            #logger.error(e)
+            session.rollback()
+        finally:
+            session.close()
     return documentos

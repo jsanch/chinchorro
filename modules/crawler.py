@@ -29,7 +29,9 @@ def crawl_oficina(oficina_id):
     data = url_generator.parse_har()
     chunks = ( url_generator.set_doc_type(url_generator.set_oficina_id(data,oficina_id),d).copy() for d in doc_types )
     docs = ( item for sublist in pool.imap(crawl,chunks) for item in sublist if item.control not in visited )
-    for doc in docs: db_worker.create_documento(doc)
+    for doc in docs:
+        db_worker.create_documento(doc)
+        del doc
     pool.close()
 
 def crawl(data):
@@ -95,7 +97,6 @@ def docs_to_states(docs):
 def int_to_states(i):
     i = math.floor(int(i)/100)
     return [ str(n) + '__' for n in range(i-2,i+2) ]
-
 
 class CrawlPagesThread(threading.Thread):
     def __init__(self,data,conn,html_queue):
