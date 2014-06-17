@@ -29,34 +29,32 @@ def crawl_oficina(oficina_id):
     logger.info('Crawling %s',oficina_id)
     data = url_generator.parse_har()
     chunks = ( url_generator.set_doc_type(url_generator.set_oficina_id(data,oficina_id),d).copy() for d in doc_types )
-    docs = ( item for sublist in pool.imap(crawl,chunks) for item in sublist if item.control not in visited )
-    for doc in docs:
-        db_worker.create_documento(doc)
-        del doc
+    pool.imap(crawl,chunks)
     pool.close()
+    pool.join()
 
 def crawl(data):
     html_queue = Queue()
     conn = urllib3.HTTPConnectionPool('190.34.178.19', maxsize=15)
-    docs = set()
     for year in [2009,2010,2011,2012,2013,2014]:
         data = url_generator.set_year(data,year)
         states = ['_']
         visited = set()
         depth = 0
         while states:
+            docs = set()
             visited.update(states)
             queries = states_to_queries(data,states)
             spawn_threads_from_queries(queries,conn,html_queue)
             while not html_queue.empty(): docs.add(html_queue.get())
             visited.update([d.control for d in docs])
             states = [s for s in docs_to_states(docs) if s not in visited]
+            docs = ( db_worker.create_documento(item) for sublist in docs for item in sublist if item.control not in visited )
             depth += 1
         logger.info('visited %i states',len(visited))
         logger.info('total depth for %i: %i',year,depth)
     logger.info('found %i docs',len(docs))
     conn.close()
-    return docs
 
 def spawn_threads_from_queries(queries,conn,html_queue,):
     threads = []
