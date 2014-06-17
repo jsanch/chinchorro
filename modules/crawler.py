@@ -24,6 +24,7 @@ def crawl_all():
         crawl_oficina(office)
 
 def crawl_oficina(oficina_id):
+    visited = db_worker.get_all_controls()
     pool = Pool(processes=2)
     logger.info('Crawling %s',oficina_id)
     data = url_generator.parse_har()

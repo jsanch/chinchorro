@@ -40,6 +40,16 @@ def chunks(l, n):
     for i in range(0, len(l), n):
         yield l[i:i+n]
 
+def get_all_controls():
+    session = session_maker()
+    try:
+        controls = list(zip(*session.query(Documento.control).all()))[0]
+        session.close()
+        return {item.lower() for item in controls}
+    except:
+        session.close()
+        return set()
+
 def create_documento(documento):
     session = session_maker()
     try:
