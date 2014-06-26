@@ -105,11 +105,21 @@ grid.table(head(a, 15), row.names = FALSE)
 
 ```r
 favorecidos <- read.csv("pan_favor.csv")
+favorecidos <- favorecidos[order(-favorecidos$sum), ]
 qplot(favor, sum, data = head(favorecidos, 25), geom = "bar", stat = "identity") + 
     coord_flip() + ylab("Monto Sumado") + ggtitle("Top 25 Entidades Favorecidas") + 
     scale_y_continuous(labels = dollar)
 ```
 
 ![plot of chunk favorecidos](figure/favorecidos.png) 
+
+
+
+```r
+favorecidos$sum <- dollar(favorecidos$sum)
+grid.table(head(favorecidos, 25), row.names = FALSE)
+```
+
+![plot of chunk fav_table](figure/fav_table.png) 
 
 
