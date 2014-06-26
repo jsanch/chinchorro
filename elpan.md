@@ -71,6 +71,15 @@ qplot(favor, x, data = head(a, 15), geom = "bar", stat = "identity") + theme(tex
 
 
 ```r
+a$x <- dollar(a$x)
+grid.table(head(a, 15), row.names = FALSE)
+```
+
+![plot of chunk 2011_table](figure/2011_table.png) 
+
+
+
+```r
 favorecidos <- read.csv("pan_2012.csv")
 df <- read.csv("pan_2012.csv")
 a <- aggregate(df[, 3], by = list(favor = df$favor), FUN = sum, na.rm = TRUE)
@@ -81,6 +90,15 @@ qplot(favor, x, data = head(a, 15), geom = "bar", stat = "identity") + theme(tex
 ```
 
 ![plot of chunk 2012](figure/2012.png) 
+
+
+
+```r
+a$x <- dollar(a$x)
+grid.table(head(a, 15), row.names = FALSE)
+```
+
+![plot of chunk 2012_table](figure/2012_table.png) 
 
 
 ## Entidades Favorecidas
