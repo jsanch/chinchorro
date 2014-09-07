@@ -1,4 +1,5 @@
 import re
+from sqlalchemy import exc
 from sqlalchemy import or_
 from sqlalchemy import func
 import logging
@@ -21,14 +22,11 @@ import itertools
 import os
 import random
 
-#logger = logging.getLogger('db_worker')
+logger = logging.getLogger('db_worker')
 CHUNK_SIZE=7000
 
 db_url = os.environ['panadata_db']
-#logger.info('loading %s', db_url)
-engine = create_engine(db_url, convert_unicode=True, echo=False)
-Base.metadata.create_all(engine)
-session_maker = sessionmaker(bind=engine)
+logger.info('loading %s', db_url)
 
 def query_chunks(q, n):
   """ Yield successive n-sized chunks from query object."""
@@ -40,8 +38,7 @@ def chunks(l, n):
     for i in range(0, len(l), n):
         yield l[i:i+n]
 
-def get_all_controls():
-    session = session_maker()
+def get_all_controls(session):
     try:
         controls = list(zip(*session.query(Documento.control).all()))[0]
         session.close()
@@ -50,22 +47,20 @@ def get_all_controls():
         session.close()
         return set()
 
-def create_documento(documento):
-    session = session_maker()
+def create_documento(documento,session):
+    c = documento.control
     try:
         session.add(documento)
         #logger.info('got new documento %s', documento.numero)
         session.commit()
         session.expunge(documento)
-    except Exception as e:
-        #logger.error(e)
+    except exc.IntegrityError as e:
         session.rollback()
-    finally:
-        session.close()
-    return documento
+    except Exception as e:
+        print(e)
+    return c
 
-def create_documentos(documentos):
-    session = session_maker()
+def create_documentos(documentos,session):
     for doc in documentos:
         try:
             session.add(documento)
