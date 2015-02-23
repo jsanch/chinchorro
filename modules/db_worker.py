@@ -3,7 +3,6 @@ from sqlalchemy import exc
 from sqlalchemy import or_
 from sqlalchemy import func
 import logging
-from scipy import stats
 from datetime import datetime
 from time import sleep
 from time import strptime
